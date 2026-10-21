@@ -1,10 +1,10 @@
 'use strict';
 // ===== общие помощники, звёзды, секреты, титул, вступление, карта, бонус =====
-const LVL=[{n:1,sc:'l1',name:'Небесная Десятка',pos:[200,345]},{n:2,sc:'l2',name:'Два барабана',pos:[365,128]},{n:3,sc:'l3',name:'Звездопад',pos:[618,385]},
- {n:4,sc:'l4',name:'Эхо Глуши',pos:[688,62]},{n:5,sc:'l5',name:'Звёздная дуэль',pos:[1036,355]}];
-const FINPOS=[1006,92];
+const LVL=[{n:1,sc:'l1',name:'Небесная Десятка',pos:[215,360]},{n:2,sc:'l2',name:'Два барабана',pos:[340,150]},{n:3,sc:'l3',name:'Звездопад',pos:[618,390]},
+ {n:4,sc:'l4',name:'Эхо Глуши',pos:[688,88]},{n:5,sc:'l5',name:'Звёздная дуэль',pos:[1040,370]}];
+const FINPOS=[1010,110];
 G.prog=()=>SCN&&SCN.prog?SCN.prog():0;G.taps=ok=>SCN&&SCN.taps?SCN.taps(ok):[];
-function plaque(t,x,y,w,o){o=o||{};const sp=o.sp||'board';const h=w/aspect(sp);X.save();X.translate(x,y);if(o.a!=null)X.globalAlpha=o.a;sprW(sp,0,0,w);X.restore();
+function plaque(t,x,y,w,o){o=o||{};const sp=o.sp||'board';const h=o.h||w/aspect(sp);if(o.h)slice3(sp,x,y,w,h,{cap:1.3,a:o.a});else{X.save();X.translate(x,y);if(o.a!=null)X.globalAlpha=o.a;sprW(sp,0,0,w);X.restore()}
  textIn(t,x,y+(o.dy||0)*h,w*(o.iw||.8),h*(o.ih||.58),o.size||44,o.col||'#fff6dc',{f:o.f||FONT,st:o.st||'#3a1a06',lw:o.lw||6,id:o.id||'plaque',min:o.min||18});return h}
 function fitSpr(n,x,y,d,o){const a=aspect(n);return spr(n,x,y,a>1?d/a:d,o)}
 // ---- звёзды: lit (горит), dark (пустое гнездо), kid (зажёг ребёнок), blue (звезда Ковшика) ----
@@ -101,23 +101,23 @@ SC.intro={enter(){cast=[hero('lira',0,{side:'L'}),hero('dzin',0,{side:'L',ov:.3,
  ui(){boardBtn('skip',safeR()-150,safeB()-50,260,'Дальше',()=>{SV.intro=1;save();go('map')},{size:44})}};
 // ---- карта: вся карта видна целиком; по краям — размытый фон ----
 function mapRect(){const v=vis(),k=Math.min(v.w/1280,v.h/720);const w=1280*k,h=720*k;return{x:640-w/2,y:v.y0+v.h-h,k,w,h}}
-SC.map={enter(){cast=[hero('lira',0,{h:330}),hero('dzin',0,{h:150})];GOAL='';musMenu();
+SC.map={enter(){cast=[hero('lira',0,{h:280}),hero('dzin',0,{h:130})];GOAL='';musMenu();
   run(async()=>{await wait(300);if(SV.stars.every(v=>!v))await say('m1');else if(SV.stars.every(v=>v)&&!SV.fin)await say('m_fin');else if(SV.sec.every(v=>v)&&!SV.bonus)await say('m_bonus')})},
  draw(){const v=vis(),m=mapRect();const b=IM.bg_map;
   if(okI(b)){X.save();X.filter='blur(14px) brightness(.8)';const s=Math.max(v.w/1280,v.h/720)*1.1;X.drawImage(b,640-640*s,v.y0+v.h/2-360*s,1280*s,720*s);X.restore();X.drawImage(b,m.x,m.y,m.w,m.h)}
   BGN='map';for(const c of cast){c.gy=safeB()-4}
   cast[0].x=safeL()+heroX(cast[0])/2;cast[1].x=safeL()+heroX(cast[0])+heroX(cast[1])/2-14;drawCast()},
- ui(){const m=mapRect();progDots(5,SV.stars.filter(v=>v).length);
-  LVL.forEach((z,i)=>{const x=m.x+z.pos[0]*m.k,y=m.y+z.pos[1]*m.k,open=SV.open>=z.n,done=SV.stars[i];const d=110,bob=Math.sin(T*2+i)*4;
+ ui(){const m=mapRect();{const w=5*50+30,y=safeB()-34;X.save();X.fillStyle='rgba(20,14,44,.55)';X.beginPath();X.roundRect(640-w/2,y-30,w,60,30);X.fill();X.restore();for(let i=0;i<5;i++)drawStar(640-100+i*50,y,46,SV.stars[i]?'lit':'dark')}
+  LVL.forEach((z,i)=>{const x=m.x+z.pos[0]*m.k,y=m.y+z.pos[1]*m.k,open=SV.open>=z.n,done=SV.stars[i];const d=100,bob=Math.sin(T*2+i)*4;
    btn('zone'+z.n,'tile',x,y+bob,d,()=>{if(!open){sayNow('m_lock');SFX.bad();return}go(z.sc)},{pulse:open&&!done});
    txt(String(z.n),x,y+bob+3,70,open?'#fff6dc':'#9ab0c0',{f:NUM,st:'#0a1a5a',lw:8,box:[x-d*.4,y+bob-d*.4,x+d*.4,y+bob+d*.4],id:'zn'});
    if(!open)spr('lock',x+38,y+bob+34,56);if(done)spr('star',x+40,y+bob-40,60,{rot:Math.sin(T*2)*.1});if(SV.sec[i])spr('comet',x-44,y+bob-42,46);
-   plaque(z.name,x,y+bob+d/2+36,250,{size:40,id:'zname'})});
+   plaque(z.name,x,y+bob+d/2+44,280,{size:40,id:'zname',sp:'lplank',h:92,iw:.84,ih:.82,min:30})});
   const allS=SV.stars.every(v=>v);const[fx,fy]=[m.x+FINPOS[0]*m.k,m.y+FINPOS[1]*m.k];const bob=Math.sin(T*2.2)*5;
   btn('zone6','tile',fx,fy+bob,110,()=>{if(!allS){sayNow('m_lock');SFX.bad();return}go('fin')},{pulse:allS&&!SV.fin});if(allS)drawStar(fx,fy+bob,64,'lit');else spr('lock',fx,fy+bob,60);
-  if(SV.fin)spr('medal',fx+44,fy+bob-40,74);plaque('Финал',fx,fy+bob+92,200,{size:40,id:'zname'});
+  if(SV.fin)spr('medal',fx+44,fy+bob-40,74);plaque('Финал',fx,fy+bob+88,190,{size:42,id:'zname',sp:'lplank',h:70,iw:.8,ih:.75});
   // золотые ноты-секреты: пять гнёзд; когда собраны все — бонусная песенка
-  const sc=SV.sec.filter(v=>v).length,bx=safeR()-150,by=safeB()-64;if(sc>=5){boardBtn('bonus',bx,by,270,'Бонус-песня',()=>go('bonus'),{pulse:!SV.bonus,size:42})}
+  const sc=SV.sec.filter(v=>v).length,bx=safeR()-150,by=safeB()-64;if(sc>=5){const bw=240,bh=bw/aspect('board');boardBtn('bonus',safeR()-bw/2-14,safeB()-bh/2-10,bw,'Бонус-песня',()=>go('bonus'),{pulse:!SV.bonus,size:42})}
   else{const w=250,h=74;X.save();X.fillStyle='rgba(20,14,44,.55)';X.beginPath();X.roundRect(bx-w/2,by-h/2,w,h,h/2);X.fill();X.restore();for(let i=0;i<5;i++)drawStar(bx-96+i*48,by,40,SV.sec[i]?'lit':'dark')}}};
 // ---- бонус: «Звёздное пианино» — песенка «Сияй, звёздочка» по светящимся звёздам, потом свободная игра ----
 const PIANO=[60,62,64,65,67,69,71,72,74,76];
@@ -128,7 +128,7 @@ SC.bonus={enter(){cast=[hero('lira',0,{side:'L'}),hero('dzin',0,{side:'L',ov:.3}
  geo(){const P=lineup(10);return tenGeo(P.cx,250,Math.min(640,P.x1-P.x0),120)},
  tap(x,y){const z=ZS,g=SC.bonus.geo();g.P.forEach((p,i)=>{if(Math.hypot(x-p.x,y-p.y)<g.d*.6)SC.bonus.hit(i)})},
  hit(i){const z=ZS;starNote(PIANO[i]-12,acNow(),.16);z.fl[i]=acNow();if(z.free)return;
-  if(i===TW[z.k]){z.k++;if(z.k%7===0){HR('dzin').jump=T;burst(640,300,20,'spark',50)}if(z.k>=TW.length){z.free=1;GOAL='Играй сам: нажимай на любые звёзды';SV.bonus=1;save();cheer();burst(640,300,90,'conf',null,1.4);sayNow('bn_win')}}},
+  if(i===TW[z.k]){z.k++;if(z.k%7===0){HR('dzin').jump=T;burst(640,300,20,'spark',50)}if(z.k>=TW.length){z.free=1;z.done=true;GOAL='Играй сам: нажимай на любые звёзды';SV.bonus=1;save();cheer();burst(640,300,90,'conf',null,1.4);sayNow('bn_win')}}},
  draw(){const z=ZS;bgDraw('fin');const g=SC.bonus.geo();g.P.forEach((p,i)=>drawStar(p.x,p.y,g.d,'lit',{flash:z.fl[i],glow:!z.free&&TW[z.k]===i,a:z.free||TW[z.k]===i?1:.7}));drawCast()},
  ui(){const z=ZS;if(!z.free){const w=Math.min(520,vis().w*.4);X.save();X.fillStyle='rgba(20,14,44,.5)';X.beginPath();X.roundRect(640-w/2,safeB()-150,w,22,11);X.fill();X.fillStyle='#ffd34a';X.beginPath();X.roundRect(640-w/2,safeB()-150,Math.max(22,w*z.k/TW.length),22,11);X.fill();X.restore()}},
  taps(ok){const z=ZS;if(z.free)return['wait'];const g=SC.bonus.geo();const p=g.P[ok?TW[z.k]:(TW[z.k]+1)%10];return ok?[[p.x,p.y]]:[]}};

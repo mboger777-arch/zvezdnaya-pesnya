@@ -6,7 +6,7 @@ SC.l1={enter(){cast=[hero('lira',0,{side:'L'}),hero('dzin',0,{side:'L',ov:.4,z:1
   musStart({bpm:92,beat(i,w){const z=ZS;if(!z||z.n!==1||!z.lit.length)return;const b=i%10;if(z.lit[b]){starNote(SONG[b],w,z.lit[b]===2?.15:.12);z.fl[b]=w}else hollow(w)}});
   run(async()=>{await wait(300);await say('a1');await say('a2');SC.l1.next()})},
  prog(){const z=ZS;return z.r*100+(z.ph==='ask'?50:z.ph==='light'?0:70)+z.lit.filter(v=>v===2).length},
- geo(){const P=lineup(10);const g=tenGeo(P.cx,safeT()+168,Math.min(640,P.x1-P.x0),112);g.cx=P.cx;g.by=g.P[5].y+g.d*.5+70;g.cy=Math.min(gY()-70,g.by+120);return g},
+ geo(){const P=lineup(10);const g=tenGeo(P.cx,safeT()+190,Math.min(620,P.x1-P.x0),104);g.cx=P.cx;g.by=g.P[5].y+g.d*.5+70;g.cy=Math.min(gY()-70,g.by+120);return g},
  next(){const z=ZS;z.r++;if(z.r>=L1R.length){z.ph='win';GOAL='';z.lit=Array(10).fill(1);winZone('a_win','a_gl');return}
   const k=L1R[z.r];z.k=k;z.lit=Array.from({length:10},(_,i)=>i<k?1:0);z.ph='light';z.opts=l1opts(10-k);z.wob={};GOAL='Зажги тёмные звёзды: нажимай на них';sayNow('a_r'+k)},
  tap(x,y){const z=ZS;if(z.ph!=='light')return;const g=SC.l1.geo();const i=g.P.findIndex(p=>Math.hypot(x-p.x,y-p.y)<g.d*.62);if(i<0)return;

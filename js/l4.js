@@ -5,7 +5,7 @@ SC.l4={enter(){cast=[hero('lira',0,{side:'L'}),hero('dzin',0,{side:'L',ov:.4,z:1
   musStart({bpm:88,beat(i,w){const z=ZS;if(!z||z.n!==4)return;const b=i%10;if(z.lit[b]){starNote(SONG[b],w,.12);z.fl[b]=w}else hollow(w)}});
   run(async()=>{await wait(300);pose('glusha','laugh',2);await say('d1');await say('d2');SC.l4.next()})},
  prog(){const z=ZS;return z.r*100+({eat:0,ask:30,tickle:60}[z.ph]||90)+(z.back||0)},
- geo(){const P=lineup(10);const g=tenGeo(P.cx,safeT()+168,Math.min(620,P.x1-P.x0),108);g.cx=P.cx;g.by=g.P[5].y+g.d*.5+66;g.cy=Math.min(gY()-70,g.by+118);return g},
+ geo(){const P=lineup(10);const g=tenGeo(P.cx,safeT()+190,Math.min(620,P.x1-P.x0),104);g.cx=P.cx;g.by=g.P[5].y+g.d*.5+66;g.cy=Math.min(gY()-70,g.by+118);return g},
  gm(){const gl=HR('glusha');return{x:(gl.dx||safeR()-150)-20,y:gY()-gl.h*.55}},
  next(){const z=ZS;z.r++;if(z.r>=L4M.length){z.ph='win';GOAL='';z.lit=Array(10).fill(1);winZone('d_win','d_gl');return}
   const m=L4M[z.r];z.m=m;z.back=0;z.lit=Array(10).fill(1);z.ph='eat';z.lock=true;GOAL='';z.wob={};

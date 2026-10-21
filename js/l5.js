@@ -6,7 +6,7 @@ SC.l5={enter(){cast=[hero('lira',0,{side:'L'}),hero('dzin',0,{side:'L',ov:.4,z:1
   musStart({bpm:90,beat(i,w){const z=ZS;if(!z||z.n!==5)return;const b=i%10;if(z.lit.length){if(z.lit[b]){starNote(SONG[b],w,.11);z.fl[b]=w}else hollow(w)}else if(b%2===0)boxNote(midi(SONG[b]+12),w,.05,1)}});
   run(async()=>{await wait(300);await say('e1');await say('e2');SC.l5.next()})},
  prog(){const z=ZS;return z.r*10+(z.ph==='ask'?0:5)},
- geo(){const P=lineup(10);const w=Math.min(600,P.x1-P.x0);const q=L5Q[Math.max(0,ZS.r)]||[];const bar=q[2]!=null;const g=tenGeo(P.cx,safeT()+168,w,92);g.cx=P.cx;g.bar=bar;
+ geo(){const P=lineup(10);const w=Math.min(600,P.x1-P.x0);const q=L5Q[Math.max(0,ZS.r)]||[];const bar=q[2]!=null;const g=tenGeo(P.cx,safeT()+190,w,92);g.cx=P.cx;g.bar=bar;
   g.by=bar?g.P[5].y+g.d*.5+62:safeT()+300;g.cy=Math.min(gY()-70,g.by+(bar?118:150));return g},
  next(){const z=ZS;z.r++;if(z.r>=L5Q.length){z.ph='win';GOAL='';z.lit=[];const gl=HR('glusha');gl.base='';run(async()=>{pose('glusha','yawn',4);await say('e_yawn');winZone('e_win')});return}
   const [t,ans,lit]=L5Q[z.r];z.t=t;z.ans=ans;z.opts=l1opts(ans);z.wob={};z.ph='call';z.lock=true;GOAL='';

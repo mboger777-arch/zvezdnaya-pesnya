@@ -25,7 +25,7 @@ const IM={};function img(n,src){const i=new Image();i.src=src;IM[n]=i;return i}
 const okI=i=>i&&i.complete&&i.naturalWidth>0;
 ['title','map','l1','l2','l3','l4','l5','fin'].forEach(n=>img('bg_'+n,'assets/bg/'+n+'.jpg'));
 const BLINKS=['lira','lira_think','kov','dzin','glusha','glusha_angry','glusha_kind'];const SPR=['lira','lira_cheer','lira_point','lira_think','kov','kov_cheer','kov_wow','dzin','dzin_cheer','dzin_sad','glusha','glusha_laugh','glusha_angry','glusha_kind','glusha_yawn'];SPR.forEach(n=>{img(n,'assets/sprites/'+n+'.png');if(BLINKS.includes(n))img(n+'_blink','assets/sprites/'+n+'_blink.png')});
-['b_ok','b_undo','b_home','b_sound','b_next','board','tile','lock','star','bubble','star_lit','star_dark','comet','note','drum','bell','medal','rotate','puff','plank','shadow'].forEach(n=>img(n,'assets/ui/'+n+'.png'));
+['b_ok','b_undo','b_home','b_sound','b_next','board','tile','lock','star','bubble','star_lit','star_dark','comet','note','drum','bell','medal','rotate','puff','plank','shadow','lplank','wbubble','banner'].forEach(n=>img(n,'assets/ui/'+n+'.png'));
 const FONT='FairyLogo, Georgia, serif',BODY='Pangolin, "Comic Sans MS", sans-serif',NUM='NunitoLogo, Arial Black, sans-serif';
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),rnd=(a,b)=>a+Math.random()*(b-a),ease=t=>t<0?0:t>1?1:1-Math.pow(1-t,3),lerp=(a,b,t)=>a+(b-a)*t;
 const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
@@ -165,7 +165,7 @@ function drawCameo(){const want=talk&&talk.who==='glusha'&&scene!=='title'&&!cas
  const gh=190;X.save();X.beginPath();X.rect(-w,-gh*1.4,w*2,gh*1.15);X.clip();spr('glusha_laugh',Math.sin(T*2)*5,-gh*.1-Math.abs(Math.sin(T*4.5))*6,gh,{ay:.5});X.restore();
  sprW('puff',0,gh*.12,w);X.restore()}
 function drawTalk(){const v=vis();
- if(talk&&talk.text){const tx=talkerX();const mx=Math.min(940,v.w*.66,safeR()-safeL()-140);let bw=Math.min(640,mx),bh=150,f;
+ if(talk&&talk.text){const tx=talkerX();const mx=Math.min(1100,v.w*.78,safeR()-safeL()-140);let bw=Math.min(640,mx),bh=150,f;
   for(let k=0;k<14;k++){f=fitText(talk.text,bw-bh*.55,bh*.66,46,BODY,40);if(f.L.length*f.lh<=bh*.66&&f.L.every(l=>X.measureText(l).width<=bw-bh*.55))break;if(bw<mx)bw=Math.min(mx,bw+60);else if(bh<230)bh+=20;else break}
   let bx=tx==null?640:clamp(tx+(tx<640?bw*.42:-bw*.42),safeL()+110+bw/2,safeR()-bw/2);let top=safeT();if(SCN&&SCN.bubble){const o=SCN.bubble(bw,tx);bx=o.x;top=o.top}
   const flip=tx!=null&&tx>bx;slice3('wbubble',bx,top+bh/2,bw,bh,{flip,cap:1.2});
