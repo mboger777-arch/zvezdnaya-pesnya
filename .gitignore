@@ -1,0 +1,4 @@
+shots/
+tools/*.log
+refs/*_old.jpg
+__pycache__/

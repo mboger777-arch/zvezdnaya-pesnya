@@ -1,0 +1,192 @@
+{
+ "lira_cheer": {
+  "w": 549,
+  "h": 829,
+  "edge": false
+ },
+ "lira_point": {
+  "w": 535,
+  "h": 826,
+  "edge": false
+ },
+ "lira_think": {
+  "w": 486,
+  "h": 823,
+  "edge": false
+ },
+ "kov_cheer": {
+  "w": 543,
+  "h": 803,
+  "edge": false
+ },
+ "kov_wow": {
+  "w": 467,
+  "h": 790,
+  "edge": false
+ },
+ "dzin_cheer": {
+  "w": 590,
+  "h": 731,
+  "edge": false
+ },
+ "dzin_sad": {
+  "w": 538,
+  "h": 731,
+  "edge": false
+ },
+ "b_ok": {
+  "w": 662,
+  "h": 665,
+  "edge": false
+ },
+ "b_undo": {
+  "w": 653,
+  "h": 665,
+  "edge": false
+ },
+ "b_home": {
+  "w": 647,
+  "h": 661,
+  "edge": false
+ },
+ "b_sound": {
+  "w": 648,
+  "h": 664,
+  "edge": false
+ },
+ "b_next": {
+  "w": 649,
+  "h": 663,
+  "edge": false
+ },
+ "board": {
+  "w": 742,
+  "h": 445,
+  "edge": false
+ },
+ "tile": {
+  "w": 647,
+  "h": 676,
+  "edge": false
+ },
+ "lock": {
+  "w": 466,
+  "h": 673,
+  "edge": false
+ },
+ "star": {
+  "w": 685,
+  "h": 676,
+  "edge": false
+ },
+ "bubble": {
+  "w": 698,
+  "h": 587,
+  "edge": false
+ },
+ "lira": {
+  "w": 581,
+  "h": 860,
+  "edge": false
+ },
+ "kov": {
+  "w": 497,
+  "h": 826,
+  "edge": false
+ },
+ "dzin": {
+  "w": 576,
+  "h": 765,
+  "edge": false
+ },
+ "glusha": {
+  "w": 570,
+  "h": 850,
+  "edge": false
+ },
+ "glusha_laugh": {
+  "w": 542,
+  "h": 836,
+  "edge": false
+ },
+ "glusha_angry": {
+  "w": 525,
+  "h": 834,
+  "edge": false
+ },
+ "glusha_kind": {
+  "w": 525,
+  "h": 833,
+  "edge": false
+ },
+ "glusha_yawn": {
+  "w": 530,
+  "h": 837,
+  "edge": false
+ },
+ "star_lit": {
+  "w": 672,
+  "h": 657,
+  "edge": false
+ },
+ "star_dark": {
+  "w": 663,
+  "h": 655,
+  "edge": false
+ },
+ "comet": {
+  "w": 700,
+  "h": 433,
+  "edge": false
+ },
+ "note": {
+  "w": 475,
+  "h": 657,
+  "edge": false
+ },
+ "drum": {
+  "w": 670,
+  "h": 585,
+  "edge": false
+ },
+ "bell": {
+  "w": 362,
+  "h": 438,
+  "edge": false
+ },
+ "medal": {
+  "w": 406,
+  "h": 689,
+  "edge": false
+ },
+ "rotate": {
+  "w": 543,
+  "h": 379,
+  "edge": false
+ },
+ "puff": {
+  "w": 667,
+  "h": 620,
+  "edge": false
+ },
+ "plank": {
+  "w": 738,
+  "h": 501,
+  "edge": false
+ },
+ "lplank": {
+  "w": 1126,
+  "h": 122,
+  "edge": false
+ },
+ "wbubble": {
+  "w": 1091,
+  "h": 181,
+  "edge": false
+ },
+ "banner": {
+  "w": 1130,
+  "h": 171,
+  "edge": false
+ }
+}
