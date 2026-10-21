@@ -112,7 +112,7 @@ let UI=[];
 function btn(id,im,x,y,d,fn,o){o=o||{};UI.push({id,x,y,w:d,h:d,fn,dis:o.dis,always:o.always});const hov=Math.hypot(PX-x,PY-y)<d/2;const k=(hov?1.06:1)*(1+(o.pulse?Math.sin(T*5)*.05:0));
  X.save();X.translate(x,y);X.scale(k,k);if(o.dis)X.globalAlpha=.45;if(o.rot)X.rotate(o.rot);sprW(im,0,0,d);X.restore()}
 // кнопка-доска с надписью
-function boardBtn(id,x,y,w,label,fn,o){o=o||{};const h=w/aspect('board');UI.push({id,x,y,w,h,fn,dis:o.dis});const hov=Math.abs(PX-x)<w/2&&Math.abs(PY-y)<h/2;const k=(hov?1.04:1)*(1+(o.pulse?Math.sin(T*4)*.03:0));
+function boardBtn(id,x,y,w,label,fn,o){o=o||{};const h=w/aspect('board');x=Math.min(x,safeR()-w/2-8);y=Math.min(y,safeB()-h/2-8);UI.push({id,x,y,w,h,fn,dis:o.dis});const hov=Math.abs(PX-x)<w/2&&Math.abs(PY-y)<h/2;const k=(hov?1.04:1)*(1+(o.pulse?Math.sin(T*4)*.03:0));
  X.save();X.translate(x,y);X.scale(k,k);sprW('board',0,0,w);X.shadowColor='transparent';X.restore();
  X.save();X.translate(x,y);X.scale(k,k);textIn(label,0,0,w*.78,h*.56,o.size||60,'#fff6dc',{f:FONT,st:'#3a1a06',lw:7,id});X.restore()}
 // ---- герои: позы, дыхание (только равномерный масштаб), прыжки на землю, взгляд на ребёнка ----
@@ -165,12 +165,12 @@ function drawCameo(){const want=talk&&talk.who==='glusha'&&scene!=='title'&&!cas
  const gh=190;X.save();X.beginPath();X.rect(-w,-gh*1.4,w*2,gh*1.15);X.clip();spr('glusha_laugh',Math.sin(T*2)*5,-gh*.1-Math.abs(Math.sin(T*4.5))*6,gh,{ay:.5});X.restore();
  sprW('puff',0,gh*.12,w);X.restore()}
 function drawTalk(){const v=vis();
- if(talk&&talk.text){const tx=talkerX();const mx=Math.min(1100,v.w*.78,safeR()-safeL()-140);let bw=Math.min(640,mx),bh=150,f;
-  for(let k=0;k<14;k++){f=fitText(talk.text,bw-bh*.55,bh*.66,46,BODY,40);if(f.L.length*f.lh<=bh*.66&&f.L.every(l=>X.measureText(l).width<=bw-bh*.55))break;if(bw<mx)bw=Math.min(mx,bw+60);else if(bh<230)bh+=20;else break}
+ if(talk&&talk.text){const tx=talkerX();const mx=Math.min(1100,v.w*.78,safeR()-safeL()-140);const nm=NAMES[talk.who],tr=nm?.6:.66,tc=nm?.57:.47;let bw=Math.min(640,mx),bh=nm?160:150,f;
+  for(let k=0;k<14;k++){f=fitText(talk.text,bw-bh*.55,bh*tr,46,BODY,36);if(f.L.length*f.lh<=bh*tr&&f.L.every(l=>X.measureText(l).width<=bw-bh*.55))break;if(bw<mx)bw=Math.min(mx,bw+60);else if(bh<230)bh+=20;else break}
   let bx=tx==null?640:clamp(tx+(tx<640?bw*.42:-bw*.42),safeL()+110+bw/2,safeR()-bw/2);let top=safeT();if(SCN&&SCN.bubble){const o=SCN.bubble(bw,tx);bx=o.x;top=o.top}
   const flip=tx!=null&&tx>bx;slice3('wbubble',bx,top+bh/2,bw,bh,{flip,cap:1.2});
-  const nm=NAMES[talk.who];if(nm)txt(nm,bx-bw/2+bh*.3,top+8,30,'#fff',{f:FONT,al:'left',st:'#3a2a8a',lw:6,box:[bx-bw/2,top-30,bx+bw/2,top+bh],id:'name'});
-  textIn(talk.text,bx,top+bh*.47,bw-bh*.55,bh*.66,46,'#2b2440',{f:BODY,st:0,id:'talk',min:40});talk.box=[bx-bw/2,top,bw,bh];return}
+  if(nm)txt(nm,bx-bw/2+bh*.34,top+bh*.17,28,'#fff',{f:FONT,al:'left',st:'#3a2a8a',lw:6,box:[bx-bw/2,top,bx+bw/2,top+bh],id:'name'});
+  textIn(talk.text,bx,top+bh*tc,bw-bh*.55,bh*tr,46,'#2b2440',{f:BODY,st:0,id:'talk',min:36});talk.box=[bx-bw/2,top,bw,bh];return}
  if(GOAL){const gr=goalRect(),bw=gr.bw,bh=gr.bh;const bx=SCN&&SCN.goalX?SCN.goalX():gr.bx;const top=SCN&&SCN.goalTop?SCN.goalTop(bh):safeT();slice3('lplank',bx,top+bh/2,bw,bh,{cap:1.3});
   textIn(GOAL,bx,top+bh/2,bw-bh*.9,bh*.64,44,'#fff6dc',{f:FONT,st:'#3a1a06',lw:6,id:'goal',min:24})}}
 // ---- сцены ----

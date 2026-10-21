@@ -22,7 +22,7 @@ SC.l2={enter(){cast=[hero('kov',0,{side:'L'}),hero('lira',0,{side:'R'}),hero('dz
   // нажал на свою звезду — убрать последний удар
   if(z.ph==='kid'&&!z.hide){const i=g.P.findIndex(p=>Math.hypot(x-p.x,y-p.y)<g.d*.6);if(i>=z.k&&i<z.k+z.c)SC.l2.undo()}},
  draw(){const z=ZS;bgDraw('l2');const g=SC.l2.geo();
-  g.P.forEach((p,i)=>{const st=i<z.kc?'blue':(i>=z.k&&i<z.k+z.c)?'lit':'dark';drawStar(p.x,p.y,g.d,st,{flash:z.fl[i],pop:z.pop[i],num:st==='lit'?i-z.k+1:st==='blue'?i+1:null,ns:.42})});
+  g.P.forEach((p,i)=>{const st=i<z.kc?'blue':(i>=z.k&&i<z.k+z.c)?'lit':'dark';drawStar(p.x,p.y,g.d,st,{flash:z.fl[i],pop:z.pop[i],num:st==='lit'?i-z.k+1:st==='blue'?i+1:null,ns:.5})});
   if(MUS.on&&(z.ph==='kid'||z.ph==='ok'))drawComet(g.P,g.d,(beatF()-z.b0+1000)%10+0);
   // туча Глуши закрывает звёзды (последние раунды)
   {let a=0;if(z.hide){a=clamp((T-z.cloudT)/(G.fast?.02:.6),0,1);if(z.cloudOff)a=1-clamp((T-z.cloudOff)/(G.fast?.02:.7),0,1)}z.cloud=a;

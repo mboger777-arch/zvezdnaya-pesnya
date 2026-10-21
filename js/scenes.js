@@ -90,7 +90,7 @@ SC.intro={enter(){cast=[hero('lira',0,{side:'L'}),hero('dzin',0,{side:'L',ov:.3,
    pose('lira','point');await say('i6');pose('lira','');pose('kov','cheer');SFX.thump();await say('i7');pose('kov','');cheer();await say('i8');
    SV.intro=1;save();await wait(300);go('map')})},
  draw(){const z=ZS;bgDraw('title');const P=lineup();const gl=HR('glusha'),dz=HR('dzin');
-  const g=tenGeo(P.cx,safeT()+40,Math.min(560,P.x1-P.x0),96);const f=beatF();
+  const g=tenGeo(P.cx,safeT()+200,Math.min(560,P.x1-P.x0),100);const f=beatF();
   g.P.forEach((p,i)=>{const e=z.eat.find(q=>q.b===i);if(e&&!z.lit[i])return drawStar(p.x,p.y,g.d,'dark');if(e){const u=clamp((T-e.t0)/(G.fast?.02:.6),0,1),gx=gl.dx||safeR()-150,gy=gY()-gl.h*.62;drawStar(lerp(p.x,gx,ease(u)),lerp(p.y,gy,ease(u)),g.d*(1-u*.7),'lit');return}
    drawStar(p.x,p.y,g.d,z.lit[i]?'lit':'dark',{flash:z.fl[i]})});
   if(MUS.on)drawComet(g.P,g.d,f);
@@ -98,7 +98,7 @@ SC.intro={enter(){cast=[hero('lira',0,{side:'L'}),hero('dzin',0,{side:'L',ov:.3,
   if(dz.drop){const u=clamp((T-dz.drop)/(G.fast?.02:.7),0,1);dz.gy=gY()-(1-u*u)*520-(u>=1?0:0);if(u>=1){dz.gy=null;dz.drop=0;burst(dz.dx||400,gY()-10,30,'spark',50)}}
   for(const c of cast)if(c.ox){c.x+=c.ox}
   drawCast()},
- ui(){boardBtn('skip',safeR()-150,safeB()-50,260,'Дальше',()=>{SV.intro=1;save();go('map')},{size:44})}};
+ ui(){boardBtn('skip',640,safeB()-40,220,'Дальше',()=>{SV.intro=1;save();go('map')},{size:44})}};
 // ---- карта: вся карта видна целиком; по краям — размытый фон ----
 function mapRect(){const v=vis(),k=Math.min(v.w/1280,v.h/720);const w=1280*k,h=720*k;return{x:640-w/2,y:v.y0+v.h-h,k,w,h}}
 SC.map={enter(){cast=[hero('lira',0,{h:280}),hero('dzin',0,{h:130})];GOAL='';musMenu();
